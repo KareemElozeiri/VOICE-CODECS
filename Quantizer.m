@@ -8,19 +8,7 @@ function [quantized_signal_time_vector, quantized_signal_value_vector, mean_squa
 
 quantized_signal_time_vector = signal_time_vector;
 quantized_signal_value_vector = signal_value_vector;
-levels = zeros(1, L);
-delta = 2*mp/L;
-
-%generating levels
-if type=="Mid-rise"
-    for i = 1:L
-        levels(i) = (i - 0.5) * delta - mp;
-    end
-else
-    for i = 1:L
-        levels(i) = (i - 1) * delta - mp;
-    end
-end 
+levels = generateLevels(type, L, mp);
 
 %applying quantization
 for i = 1:length(signal_value_vector)
@@ -30,6 +18,7 @@ for i = 1:length(signal_value_vector)
     quantized_signal_value_vector(i) = levels(index);
 end
 
+%calculating mean square error
 squared_error = (quantized_signal_value_vector - signal_value_vector).^2;
 mean_squared_error = mean(squared_error);
 disp(mean_squared_error);
