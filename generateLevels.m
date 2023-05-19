@@ -7,7 +7,7 @@ levels = zeros(1, L);
 delta = 2*mp/L;
 
 %generating levels
-if type=="Mid-rise"
+if type == "Mid-rise"
     for i = 1:L
         levels(i) = (i - 0.5) * delta - mp;
     end

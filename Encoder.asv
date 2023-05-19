@@ -5,19 +5,10 @@ function [encoddedMsg] = Encoder(quantized_signal_time_vector, quantized_signal_
 %   type -> the encoding type (Manchester Signaling/Alternate Mark Inversion Signaling)
 %   binary_map -> storing the binary-value map for binary encoding
 
-binaryEncoding = zeros(1, length(quantized_signal_time_vector));
+encoddedMsg = zeros(1, length(quantized_signal_time_vector));
 
-%converting the signal to its binary representation
 for i=1:length(quantized_signal_value_vector)
-    binaryEncoding(i) = binary_map(quantized_signal_time_vector(i))
+    
 end
-
-if type == "Manchester Signaling"
-    disp(0);
-else
-    %perform lternate Mark Inversion Signaling
-    disp(1);
-end
-
 
 end
