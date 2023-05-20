@@ -26,14 +26,14 @@ encoded_msg = zeros(1,R*2*length(quantized_signal_time_vector));
 for i=0:length(binaryEncoding)
     if type == "Manchester Signaling"
         for j=1:R
-            [tt, xx] = generateManchester(binaryEncoding(i)(j), Tb, amplitude, offset);
+            [tt, xx] = generateManchester(binaryEncoding(i,j), Tb, amplitude, offset);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
         end 
     else
         %perform lternate Mark Inversion Signaling
         for j=1:R
-            [tt, xx] = generateAMI(binaryEncoding(i)(j), Tb, amplitude, polarity, offset);
+            [tt, xx] = generateAMI(binaryEncoding(i,j), Tb, amplitude, polarity, offset);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
         end 
