@@ -10,13 +10,11 @@ binaryEncoding = strings(1, length(quantized_signal_time_vector));
 
 %converting the signal to its binary representation
 for i=1:length(quantized_signal_value_vector)
-    disp(quantized_signal_value_vector(i));
     binaryEncoding(i) = binary_map(num2str(quantized_signal_value_vector(i)));
 end
 
 R = int64(ceil(log2(L)));
 Tb = quantized_signal_time_vector(2)/double(R);
-disp(Tb)
 offset = 0;
 amplitude = 5;
 polarity = 1; %for AMI
@@ -29,24 +27,26 @@ for i=1:length(binaryEncoding)
         for j=1:R
             bit = char(binaryEncoding(i));
             [tt, xx] = generateManchester(bit(j), Tb, amplitude, offset);
-            disp(tt);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
+            offset = offset + Tb;
+
         end 
     else
         %perform Alternate Mark Inversion Signaling
         for j=1:R
             bit = char(binaryEncoding(i));
+
             [tt, xx] = generateAMI(bit(j), Tb, amplitude, polarity, offset);
-            %disp(tt);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
+            offset = offset + Tb;
+            if bit=='1'
+                    polarity = -polarity;
 
         end 
-        polarity = -polarity;
     end
 
-    offset = offset + Tb;
 end
 
 end

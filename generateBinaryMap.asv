@@ -11,8 +11,8 @@ binaryLevelsMap = containers.Map('KeyType', 'char', 'ValueType', 'double');
 
 
 for i = 1:L
-    bits = strrep(num2str(de2bi(i-1, R)));
-    levelsBinaryMap(levels(i)) = bits;
+    bits = strrep(num2str(de2bi(i-1, R)), ' ', '');
+    levelsBinaryMap(levels(i)) = char(bits);
     binaryLevelsMap(n) = levels(i);
     disp(num2str(de2bi(i-1, R)))
 end
