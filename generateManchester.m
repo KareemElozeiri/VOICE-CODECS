@@ -5,11 +5,10 @@ function [manchester_time, manchester_bit] = generateManchester(bit, Tb, amplitu
 %   amplitude -> the amplitude value of the signal
 %   offset -> the shift in time intances
 
-manchester_time = zeros(1,2);
+manchester_time = [offset, offset+Tb];
 manchester_bit = zeros(1,2);
 
-manchester_time(1) = offset;
-manchester_time(2) = Tb/2 + offset;
+
 
 if bit == '0'
     manchester_bit(1) = -amplitude;

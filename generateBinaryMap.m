@@ -6,14 +6,14 @@ L = length(levels);
 R = ceil(log2(L));
 
 %binaryRep = zeros(L, R);
-levelsBinaryMap = containers.Map('KeyType', 'double', 'ValueType', 'char');
+levelsBinaryMap = containers.Map('KeyType', 'char', 'ValueType', 'char');
 binaryLevelsMap = containers.Map('KeyType', 'char', 'ValueType', 'double');
 
 
 for i = 1:L
     bits = strrep(num2str(de2bi(i-1, R)),' ', '');
-    levelsBinaryMap(levels(i)) = bits;
-    binaryLevelsMap(bits) = levels(i);
+    levelsBinaryMap(num2str(levels(i))) = char(bits);
+    binaryLevelsMap(char(bits)) = levels(i);
 end
 
 

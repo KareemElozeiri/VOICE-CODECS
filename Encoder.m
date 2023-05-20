@@ -6,36 +6,42 @@ function [encoded_msg_time, encoded_msg] = Encoder(quantized_signal_time_vector,
 %   binary_map -> storing the binary-value map for binary encoding
 %   L -> number of levels
 
-binaryEncoding = zeros(1, length(quantized_signal_time_vector));
+binaryEncoding = strings(1, length(quantized_signal_time_vector));
 
 %converting the signal to its binary representation
 for i=1:length(quantized_signal_value_vector)
-    binaryEncoding(i) = binary_map(quantized_signal_time_vector(i))
+    disp(quantized_signal_value_vector(i));
+    binaryEncoding(i) = binary_map(num2str(quantized_signal_value_vector(i)));
 end
 
-R = ceil(log2(L));
-Tb = (quantized_signal_time_vector(2) - quantized_signal_time_vector(1))/R;
+R = int64(ceil(log2(L)));
+Tb = quantized_signal_time_vector(2)/double(R);
+disp(Tb)
 offset = 0;
 amplitude = 5;
 polarity = 1; %for AMI
 
-encoded_msg_time = zeros(1,R*2*length(quantized_signal_time_vector));
-encoded_msg = zeros(1,R*2*length(quantized_signal_time_vector));
+encoded_msg_time = []; %zeros(1, 2*R*length(quantized_signal_time_vector));
+encoded_msg = []; %zeros(1, 2*R*length(quantized_signal_time_vector));
 
-
-for i=0:length(binaryEncoding)
+for i=1:length(binaryEncoding)
     if type == "Manchester Signaling"
         for j=1:R
-            [tt, xx] = generateManchester(binaryEncoding(i,j), Tb, amplitude, offset);
+            bit = char(binaryEncoding(i));
+            [tt, xx] = generateManchester(bit(j), Tb, amplitude, offset);
+            disp(tt);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
         end 
     else
-        %perform lternate Mark Inversion Signaling
+        %perform Alternate Mark Inversion Signaling
         for j=1:R
-            [tt, xx] = generateAMI(binaryEncoding(i,j), Tb, amplitude, polarity, offset);
+            bit = char(binaryEncoding(i));
+            [tt, xx] = generateAMI(bit(j), Tb, amplitude, polarity, offset);
+            %disp(tt);
             encoded_msg_time = [encoded_msg_time tt];
             encoded_msg = [encoded_msg xx];
+
         end 
         polarity = -polarity;
     end

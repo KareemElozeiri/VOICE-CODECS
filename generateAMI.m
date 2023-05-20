@@ -7,11 +7,9 @@ function [AMI_time, AMI_bit] = generateAMI(bit, Tb, amplitude, polarity, offset)
 %   is down
 %   offset -> the shift in time intances
 
-AMI_time = zeros(1,2);
+AMI_time = [offset, offset+Tb];
 AMI_bit = zeros(1,2);
 
-AMI_time(1) = offset;
-AMI_time(2) = Tb/2 + offset;
 
 if bit == '0'
     AMI_bit(1) = 0;
