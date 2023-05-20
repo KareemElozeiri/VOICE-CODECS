@@ -5,7 +5,6 @@ lamda = 0;
 R = ceil(log2(L));
 Amp = zeros(1, length(encoded_msg)/(2*R));
 Time = zeros(1, length(encoded_msg)/(2*R));
-disp(encoded_msg(1:10))
 Str = blanks(R);
 if type == "Manchester Signaling"
     for i=1:length(Amp)

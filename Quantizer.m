@@ -31,5 +31,4 @@ stairs(quantized_signal_time_vector, quantized_signal_value_vector);
 legend("Original Signal", "Quantized Signal");
 xlabel("Time");
 ylabel("Amplitude");
-
 end
